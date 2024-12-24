@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Listing
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-# Create your views here.
+from listings.choices import price_choices, bedroom_choices, district_choices
+# Create your views here.7
 def index(request):
     listings = Listing.objects.order_by('-list_date').filter(is_published=True)
     paginator = Paginator(listings,3)
@@ -13,7 +14,14 @@ def index(request):
     return render(request,'listings/listings.html', context)
 
 def listing(request, listing_id):
-    return render(request,'listings/listing.html')
+    listing = get_object_or_404(Listing, pk=listing_id)
+    context = {"listing" : listing}
+    return render(request,'listings/listing.html', context)
 
 def search(request):
-    return render(request,'listings/search.html')
+    context = {
+        'price_choices' : price_choices,
+        'bedroom_choices' : bedroom_choices,
+        'district_choices' : district_choices
+    }
+    return render(request,'listings/search.html', context)
