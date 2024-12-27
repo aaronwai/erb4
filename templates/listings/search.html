@@ -3,7 +3,8 @@
   <div class="container">
     <div class="row text-center">
       <div class="col-md-12">
-        <form action={% url 'search' %}>
+        {% comment %} update csrf later {% endcomment %}
+        <form action={% url 'search' %} method="GET">
           <!-- Form Row 1 -->
           <div class="form-row">
             <div class="col-md-4 mb-3">
@@ -13,27 +14,31 @@
                 name="keywords"
                 class="form-control"
                 placeholder="Keyword (Bathrooms, ClubHouse, etc)"
+                value = "{{values.keywords}}"
               />
             </div>
 
             <div class="col-md-4 mb-3">
-              <label class="sr-only">City</label>
+              <label class="sr-only">Title</label>
               <input
                 type="text"
-                name="Street"
+                name="title"
                 class="form-control"
-                placeholder="Street"
+                placeholder="Title"
+                value="{{values.title}}"
               />
             </div>
 
             <div class="col-md-4 mb-3">
               <label class="sr-only">District</label>
-              <select name="District" class="form-control">
+              <select name="district" class="form-control">
                 <option selected="true" disabled="disabled">
                   Districts (All)
                 </option>
             {% for key,value in district_choices.items %}
-                <option value={{key}}>{{value}}</option>
+                <option value="{{key}}"
+                {% if key == values.district %} selected {% endif %}
+                >{{value}}</option>
             {% endfor %}
               </select>
             </div>
@@ -93,48 +98,54 @@
   <div class="container">
     <div class="row">
       <!-- Listing 1 -->
-      {% comment %} for {% endcomment %}
+      {% if listings %}
+      {% for listing in listings %}
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="card listing-preview">
-          <img class="card-img-top" src="assets/img/homes/home-1.jpg" alt="" />
+          <img class="card-img-top" src={{listing.photo_main.url}} alt="" />
           <div class="card-img-overlay">
             <h2>
-              <span class="badge badge-secondary text-white">$490,000</span>
+              <span class="badge badge-secondary text-white">${{listing.price | intword}}</span>
             </h2>
           </div>
           <div class="card-body">
             <div class="listing-heading text-center">
-              <h4 class="text-primary">45 Prince Street</h4>
+              <h4 class="text-primary">{{listing.title | title}}</h4>
               <p>
-                <i class="fas fa-map-marker text-secondary"></i> Yau Tsim Mong
+                <i class="fas fa-map-marker text-secondary"></i> {{listing.get_district_display}}
               </p>
             </div>
             <hr />
             <div class="row py-2 text-secondary">
               <div class="col-6">
-                <i class="fas fa-th-large"></i> Sqft: 3200
+                <i class="fas fa-th-large"></i> Sqft: {{listing.sqft | intcomma}}
               </div>
-              <div class="col-6"><i class="fas fa-car"></i> ClubHouse: 2</div>
+              <div class="col-6"><i class="fas fa-car"></i> ClubHouse: {{listing.clubhouse}}</div>
             </div>
             <div class="row py-2 text-secondary">
-              <div class="col-6"><i class="fas fa-bed"></i> Bedrooms: 3</div>
-              <div class="col-6"><i class="fas fa-bath"></i> Bathrooms: 2</div>
+              <div class="col-6"><i class="fas fa-bed"></i> Bedrooms: {{listing.bedrooms}}</div>
+              <div class="col-6"><i class="fas fa-bath"></i> Bathrooms: {{listing.bathrooms}}</div>
             </div>
             <hr />
             <div class="row py-2 text-secondary">
-              <div class="col-12"><i class="fas fa-user"></i> Kyle Chan</div>
+              <div class="col-12"><i class="fas fa-user"></i> {{listing.realtor.name}}</div>
             </div>
             <div class="row text-secondary pb-2">
-              <div class="col-6"><i class="fas fa-clock"></i> 2 days ago</div>
+              <div class="col-6"><i class="fas fa-clock"></i> {{listing.list_date | timesince}}</div>
             </div>
             <hr />
-            <a href="listing.html" class="btn btn-primary btn-block"
+            <a href={% url 'listing' listing.id %} class="btn btn-primary btn-block"
               >More Info</a
             >
           </div>
         </div>
       </div>
-      {% comment %} endfor {% endcomment %}
+      {% endfor %}
+      {% else %}
+      <div class="col-md-12">
+        <p>No Listings found</p>
+      </div>
+      {% endif %}
     </div>
   </div>
 </section>

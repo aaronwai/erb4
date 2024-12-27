@@ -2,7 +2,7 @@
 <section id="showcase">
   <div class="container text-center">
     <div class="home-search p-5">
-      <div class="overlay p-5">
+     <div class="overlay p-5">
         <h1 class="display-4 mb-4">Property Searching Just Got So Easy</h1>
         <p class="lead">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae
@@ -10,7 +10,8 @@
           Consectetur, id commodi!
         </p>
         <div class="search">
-          <form action={% url 'search' %}>
+          <form action={% url 'search' %} method="GET">
+            {% comment %} {% csrf_token %} {% endcomment %}
             <!-- Form Row 1 -->
             <div class="form-row">
               <div class="col-md-4 mb-3">
@@ -24,12 +25,12 @@
               </div>
 
               <div class="col-md-4 mb-3">
-                <label class="sr-only">street</label>
+                <label class="sr-only">Title</label>
                 <input
                   type="text"
-                  name="street"
+                  name="title"
                   class="form-control"
-                  placeholder="Street"
+                  placeholder="Title"
                 />
               </div>
 
@@ -97,10 +98,10 @@
           </div>
           <div class="card-body">
             <div class="listing-heading text-center">
-              <h4 class="text-primary">{{listing.title}}</h4>
+              <h4 class="text-primary">{{listing.title | title}}</h4>
               <p>
                 <i class="fas fa-map-marker text-secondary"></i
-                >{{listing.district}}
+                >{{listing.get_district_display}}
               </p>
             </div>
             <hr />

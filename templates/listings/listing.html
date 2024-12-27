@@ -4,8 +4,8 @@
     <div class="row text-center">
       <div class="col-md-12">
         {% comment %} title {% endcomment %}
-        <h1 class="display-4">{{listing.title}}</h1>
-        <p class="lead"><i class="fas fa-map-marker"></i> {{listing.district}}</p>
+        <h1 class="display-4">{{listing.title | title}}</h1>
+        <p class="lead"><i class="fas fa-map-marker"></i> {{listing.get_district_display}}</p>
       </div>
     </div>
   </div>
@@ -16,12 +16,12 @@
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.html">Home</a>
+          <a href={% url "index" %}>Home</a>
         </li>
         <li class="breadcrumb-item">
-          <a href="listings.html">Listings</a>
+          <a href={% url "listings" %}>Listings</a>
         </li>
-        <li class="breadcrumb-item active">{{listing.title}}</li>
+        <li class="breadcrumb-item active">{{listing.title | title}}</li>
       </ol>
     </nav>
   </div>
@@ -178,7 +178,7 @@
           </div>
         </div>
       </div>
-0      <div class="col-md-3">
+     <div class="col-md-3">
         <div class="card mb-3">
             {% comment %} realtor {% endcomment %}
           <img
