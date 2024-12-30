@@ -32,7 +32,6 @@
     <a href={% url "listings" %} class="btn btn-light mb-4">Back To Listings</a>
     <div class="row">
       <div class="col-md-9">
-        <!-- Home Main Image fix it later -->
         <img
           src={{listing.photo_main.url}}
           alt=""
@@ -130,7 +129,6 @@
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-secondary">
-                {% comment %} price {% endcomment %}
                 <i class="fas fa-money-bill-alt"></i> Asking Price:
                 <span class="float-right">${{listing.price | intword}}</span>
               </li>
@@ -150,7 +148,6 @@
           </div>
           <div class="col-md-6">
             <ul class="list-group list-group-flush">
-                {% comment %} update sqft {% endcomment %}
               <li class="list-group-item text-secondary">
                 <i class="fas fa-th-large"></i> Square Feet:
                 <span class="float-right">{{listing.sqft | intcomma}}</span>

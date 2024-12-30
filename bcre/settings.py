@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +43,8 @@ INSTALLED_APPS = [
      "debug_toolbar",
     "pages.apps.PagesConfig",
     'listings.apps.ListingsConfig',
-    'realtors.apps.RealtorsConfig'
+    'realtors.apps.RealtorsConfig',
+     'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -142,3 +144,8 @@ MEDIA_URL = '/media/'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+    messages.SUCCESS: 'success',
+}
