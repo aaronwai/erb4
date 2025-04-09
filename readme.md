@@ -6,5 +6,3 @@ text3
 text4
 text5
 text8
-text6
-hello
