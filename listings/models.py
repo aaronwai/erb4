@@ -2,7 +2,7 @@ from django.db import models
 from realtors.models import Realtor
 from datetime import datetime
 from listings.choices import district_choices
-
+# # continue tomorrow 
 # Create your models here.
 class Listing(models.Model):
     realtor = models.ForeignKey(Realtor, on_delete=models.DO_NOTHING)

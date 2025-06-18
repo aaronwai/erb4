@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from .models import Contact
 # Create your views here.
+# # comment for contact view 4/22/25
+#  // 
 def contact(request):
     if request.method == "POST":
         listing_id = request.POST["listing_id"]
