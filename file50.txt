@@ -1,1 +1,2 @@
 demo for rebasing
+modify demo for stash
